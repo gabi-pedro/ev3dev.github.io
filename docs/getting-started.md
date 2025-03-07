@@ -1,307 +1,35 @@
----
-title: Getting Started with ev3dev
-categories: docs getting-started
-excerpt: "So you're ready to try out ev3dev. Great! Here are step-by-step instructions to help you get ev3dev up and running on your EV3 or Raspberry Pi."
-no-wrapper: true
----
-
-{% include /style/begin-section.html %}
-
-* Table of Contents
-{:toc}
-
-So you're ready to try out ev3dev. Great! Here are step-by-step instructions
-to help you get ev3dev up and running on your EV3 or Raspberry Pi.
-
-First, here are the things you need before starting:
-
-* A LEGO MINDSTORMS EV3 Intelligent Brick or Raspberry Pi (any model).
-* A [microSD] or [microSDHC] card (2GB or larger). [microSDXC] is not supported
-  on the EV3. **All cards larger than 32GB will not work with the EV3!**
-* A computer with an adapter for the SD card. You will need administrator user
-  permissions on this computer.
-* A way to communicate with the device.
-
-  For the EV3, this can be one of the following:
-
-  * USB cable (the one that comes with the EV3)
-  * USB Wi-Fi dongle
-  * USB Ethernet (wired) dongle
-  * Bluetooth
-
-  For Raspberry Pi you can use a wired Ethernet connection first.
-  With PiStorms the EV3 options will work too since you have a built-in screen to configure them on.
-  With BrickPi you can also set up other connections from the console using an external screen and keyboard.
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html bg="dark" %}
-
-## Step 1: Download the latest ev3dev image file
-
-<div class="release-link-container" markdown="1">
-
-<br/>
-<div class="text-center">
-<!-- <a data-release-link-platform="ev3_beta" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-download-alt"></span> Download ev3dev-buster beta for LEGO MINDSTORMS EV3</a>
-<br/><br/> -->
-<a data-release-link-platform="ev3" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Download ev3dev-stretch for LEGO MINDSTORMS EV3</a>
-<br/><br/>
-<h2 class="centered-light-heading"> Other platforms </h2>
-<!-- <a data-release-link-platform="rpi_beta" class="btn btn-md btn-default download-button-small">Raspberry Pi 1</a>
-<a data-release-link-platform="rpi2_beta" class="btn btn-md btn-default download-button-small">Raspberry Pi 2</a>
-<a data-release-link-platform="bone_beta" class="btn btn-md btn-default download-button-small">BeagleBone</a>
-<br/><br/> -->
-<a data-release-link-platform="rpi" class="btn btn-md btn-primary download-button-small">Raspberry Pi Zero/1</a>
-<a data-release-link-platform="rpi2" class="btn btn-md btn-primary download-button-small">Raspberry Pi 2/3</a>
-<a data-release-link-platform="bone" class="btn btn-md btn-primary download-button-small">BeagleBone</a>
-</div>
-
-<br/>
-To get started, you will need to download the release corresponding to the platform
-you are using. For additional downloads and advanced information, check out our
-[dedicated download page](/downloads).
-
-</div>
-<div class="release-link-alt" markdown="1">
-To get started, you will need to download the release corresponding to the platform
-you are using. Visit the [GitHub releases page][releases] and find the image that
-corresponds to your platform:
-
-- Releases for the LEGO MINDSTORMS EV3 start with `ev3- `
-- Releases for the Raspberry Pi 1 start with `rpi-`
-- Releases for the Raspberry Pi 2 and 3 start with `rpi2-`
-- Releases for the BeagleBone start with `evb-`
-</div>
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html %}
-
-## Step 2: Flash the SD card
-
-{% include /style/icon.html type="danger" %}
-This will erase everything on your SD card! Back up your files
-if you do not want to lose them!
-{: .alert .alert-danger }
-
-Now it's time to write the image to the card.
-
-1. Download and install Etcher from [their website](https://etcher.io).
-2. Launch Etcher after it has finished installing.
-
-   {% include /util/screenshot.html source="/images/etcher/home.png" caption="Etcher home screen" width="600px" %}
-
-3. Click the "Select image" button and browse to the folder where you
-   downloaded an ev3dev release. Select the file that you downloaded.
-   The release can be a `.img.zip` or `.img.xz`; whichever
-   you have will work with Etcher.
-
-   {% include /util/screenshot.html source="/images/etcher/image-selected.png" caption="Image chosen in Etcher" width="600px" %}
-
-4. Plug the SD card into your PC (if your PC doesn't have a micro SD
-   slot, you can use an adapter or external reader). Etcher should
-   detect the new device and display its information under the "Select
-   drive" step. Confirm that the selected drive is correct.
-
-   {% include /util/screenshot.html source="/images/etcher/drive-selected.png" caption="Drive selected in Etcher" width="600px" %}
-   
-5. If you have multiple removable drives available, you may need to
-     use the "Change" button to select the proper device.
-
-6. When you are confident that you have selected the correct drive,
-   click "Flash!" and wait for the operation to complete.
-   
-   {% include /util/screenshot.html source="/images/etcher/flash-started.png" caption="Etcher flashing the SD card" width="600px" %}
-
-7. If you arrive at this screen, you have successfully flashed your SD card and are ready to move on to the next step.
-   
-   {% include /util/screenshot.html source="/images/etcher/success.png" caption="Etcher success screen" width="600px" %}
-<br/>
-
-{% include /style/icon.html type="info" %}
-For more detailed information and flashing utility alternatives, check out
-[our other tutorials](/docs/tutorials/#group-administration-and-setup-sd-card-image){: .alert-link }.
-You can also check out [this page for RaspberryPi](https://elinux.org/RPi_Easy_SD_Card_Setup){: .alert-link }.
-Much of the information there is applicable to ev3dev.
-{: .alert .alert-info }
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html bg="dark" %}
-
-## Step 3A (Raspberry Pi only): Update options in config.txt
-
-{% include /style/icon.html type="warning" %}
-This is for Raspberry Pi only! Users of other platforms can skip this step.
-{: .alert .alert-warning }
-
-You must make some changes to `config.txt` to enable support for BrickPi or
-PiStorms before you put your SD card in your Raspberry Pi.
-
-You may have to remove the SD card from your host computer and plug it back in
-after flashing it in order for it to be detected. In your file browser, open
-up `EV3DEV_BOOT`. This contains a file named `config.txt`. Open `config.txt`
-in your favorite text editor and follow the instructions in the file to enable
-either BrickPi or PiStorms.
-
-## Step 3B (BeagleBone only): Select cape in uEnv.txt
-
-{% include /style/icon.html type="warning" %}
-This is for Beaglebone only! Users of other platforms can skip this step.
-{: .alert .alert-warning }
-
-You must make some changes to `uEnv.txt` to enable support for FatcatLab EVB or
-QuestCape before you put your SD card in your BeagleBone.
-
-You may have to remove the SD card from your host computer and plug it back in
-after flashing it in order for it to be detected. In your file browser, open
-up `EV3DEV_BOOT`. This contains a file named `uEnv.txt`. Open `uEnv.txt`
-in your favorite text editor and follow the instructions in the file to select
-the cape your are using.
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html %}
-
-<div class="row">
-<div class="col-md-8" markdown="1">
-
-## Step 4: Boot ev3dev
-
-Put the SD Card in your EV3 and power it on. At first, you will see the
-MINDSTORMS boot splash and the red LEDs will be on. This is immediately
-followed by the ev3dev boot splash and the LEDs changing to orange. The
-LEDs indicate disk (SD card) activity.
-
-After about one minute, the screen will go blank. This happens on the first boot
-only. The first boot takes longer than subsequent boots because the EV3
-has to create a unique SSH host ids and take care of a few other housekeeping
-items. After another minute or two, you will see the *brickman loading...* screen.
-If nothing has happened after five minutes, something is not right - check the
-troubleshooting tips below.
-
-You will notice the number in the battery in the upper right corner. This
-displays the remaining voltage of the power supply. It is not possible to
-calculate an accurate percent value of the remaining energy, so this value is
-chosen. If the voltage drops below 5V the brick will turn off. All unsaved
-data will be lost. Keep in mind, that it may take a much longer time from 8V to
-6.5V than from 6.5V down to 5V!
-
-**Note:** If you are using Raspberry Pi hardware without a screen, just wait for
-the Activity LED to stop flashing, then go to the next step. If alternatively 
-you have connected the pi to a screen monitor via HDMI 
-press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F6</kbd> at the end of the boot sequence. 
-This should take you to a login prompt. Login as 'robot' with password 'maker'. 
-
-
-</div>
-
-<div class="col-md-4">
-{% include /util/screenshot.html source="/images/brickman/main-menu.png" caption="When the boot is complete, the LEDs will turn green and you will see something like this on the screen" %}
-</div>
-</div>
-
-{% include /style/begin-panel.html type="info" heading="Troubleshooting tips if your EV3 won't boot" %}
-
-* Make sure nothing is plugged into the EV3 (USB/sensors/motors/etc.)
-* Try writing the image to the SD card again.
-* You may have a bad/incompatible SD card - try a different SD card.
-* Check the condition of the EV3 batteries.
-
-{% include /style/end-panel.html %}
-
-<div class="row">
-<div class="col-md-8" markdown="1">
-### Shutting down
-
-You'll often want to turn off your EV3 while it isn't in use. When you are ready
-to wish your EV3 good night, turn if off by pressing the *back* button from the
-main menu in brickman or pressing _and holding_ the *back* button from any screen
-in brickman. This will open a dialog where you can select *Power Off* to turn
-off the EV3. _If you're using the command line, running `sudo poweroff` in a
-terminal works too._
-</div>
-
-<div class="col-md-4">
-{% include /util/screenshot.html source="/images/brickman/shutdown-menu.png" caption="The 'Shutdown...' dialog in Brickman" %}
-</div>
-</div>
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html bg="dark" %}
-
-## Step 5: Set up a network connection
-
-Click on the button below to visit our networking page. There are lots of
-choices here; choose the connection option that best suits you and your
-available hardware.
-
-<a class="btn btn-md btn-primary" href="/docs/networking" target="_blank"><span class="glyphicon glyphicon-globe"></span> Check out the available networking options</a>
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html %}
-
-
-## Step 6: Connect to the EV3 via SSH
-
-Now that you have a network connection, you should connect to your EV3 with SSH.
-Connecting allows you to verify that the networking option that you configured
-in the previous step is working. Once you have an SSH connection, you will be
-able to securely run terminal commands on the EV3 from your PC. This lets you
-run programs, change settings, and install new programs. Click the button below
-to learn how to connect.
-
-<a class="btn btn-md btn-primary" href="/docs/tutorials/connecting-to-ev3dev-with-ssh" target="_blank"><span class="glyphicon glyphicon-transfer"></span> Learn how to connect with SSH</a>
-
-To test this out, let's try running a command (make sure that you have completed
-the earlier part of this step first).
-
-Type the command `fortune` into the SSH shell opened above and press
-<kbd>Enter</kbd>. It will use a nifty program called `fortune` to print out a
-random quote from a database. Feel free to try it multiple times!
-
-    robot@ev3dev:~$ fortune
-    Your domestic life may be harmonious.
-
-If you don't see any errors printed, and your output looks similar to the above,
-you're good to go!
-
-{% include /style/end-section.html %}
-
-{% include /style/begin-section.html bg="dark" %}
-
-## Step 6.1: Optional: Update `apt`
-
-Currently, the image file downloaded from step 1 was built in 2020.
-`apt` does not work out of the box.
-
-To fix `apt` in general, `/etc/apt/sources.list` needs to be changed to match [this file][SourcesList]
-
-Specifically, you can run `sudo nano /etc/apt/sources.list`,
-delete the old content from that file,
-and replace them with the content from the link above.
-
-
-## Step 7: Choose a programming language and write some code
-
-{% include /style/icon.html type="info" %}
-If you were sent here from a language- or framework-specific webpage, you can
-skip this step and return there for further instructions.
-{: .alert .alert-info }
-
-The brick can run the vast majority of popular programming languages, so your
-favorite language is probably supported. Pick your language and write some code!
-
-<a class="btn btn-md btn-primary" href="/docs/programming-languages"><span class="glyphicon glyphicon-console"></span> See the available programming languages</a>
-
-{% include /style/end-section.html %}
-
-
-[microSD]: https://en.wikipedia.org/wiki/Secure_Digital#SD
-[microSDHC]: https://en.wikipedia.org/wiki/Secure_Digital#SDHC
-[microSDXC]: https://en.wikipedia.org/wiki/Secure_Digital#SDXC
-[SourcesList]: https://github.com/ev3dev/docker-library/blob/master/ev3dev-stretch/layers/debian/etc/apt/sources.list
-[releases]:https://github.com/ev3dev/ev3dev/releases
+<export xmlns="http://de.fhg.iais.roberta.blockly"><program><block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="ev3" xmlversion="3.1" description="" tags=""><instance x="-370" y="-123"><block type="robControls_start" id="Xp@I.-f]77kmIGDE=NOy" intask="true" deletable="false"><mutation declare="false"></mutation><field name="DEBUG">FALSE</field><data>{"learningRate":0.03,"regularizationRate":0,"noise":0,"batchSize":10,"discretize":false,"percTrainData":50,"activationKey":"linear","activation":{},"regularization":null,"initUntil":null,"collectStats":false,"numHiddenLayers":0,"networkShape":[],"weights":[[["1"]],[[]]],"biases":[["0"],["0"]],"precision":"2","weightArcMaxSize":8,"weightSuppressMultOp":true,"inputs":["n1"],"outputs":["n2"],"hiddenNeurons":[]}</data></block><block type="robControls_loopForever" id="4zLQ#@VxkzpEtj9#Ra5{" intask="true"><statement name="DO"><block type="robActions_motorDiff_on" id="JQ@mCv[wV+oVN]{Ds2oM" intask="true"><field name="DIRECTION">FOREWARD</field><value name="POWER"><block type="math_number" id="v@0g+;lV|N0E,Um6{nqR" intask="true"><field name="NUM">100</field></block></value></block><block type="robControls_if" id="fKxo(nna`_6E_Y47d).B" intask="true"><value name="IF0"><block type="logic_compare" id="cvlp*{3te^xNJ0{rghyb" intask="true"><field name="OP">EQ</field><value name="A"><block type="robSensors_colour_getSample" id=".sEEnR[!N@{2[T56v1~;" intask="true"><mutation mode="COLOUR"></mutation><field name="MODE">COLOUR</field><field name="SENSORPORT">3</field><field name="SLOT"></field></block></value><value name="B"><block type="robColour_picker" id="T/tL7-d(7xq*j`On49N`" intask="true"><field name="COLOUR">#b30006</field></block></value></block></value><statement name="DO0"><block type="robActions_motorDiff_stop" id="^;pV_QVCx|ZlCiskB_aO" intask="true"></block><block type="robControls_wait_time" id="a)qj^[Na=3C%V5VbSOXA" intask="true"><value name="WAIT"><block type="math_number" id="AWT|!a:(534-=LgJ*siX" intask="true"><field name="NUM">1000</field></block></value></block></statement></block><block type="robControls_if" id="c56=o-@4=oFFz:D..m=h" intask="true"><value name="IF0"><block type="logic_compare" id="4LmO37`.?.LB~,jT*ys%" intask="true"><field name="OP">LTE</field><value name="A"><block type="robSensors_ultrasonic_getSample" id="d4/2Q+ft8sCRl-k+L*W=" intask="true"><mutation mode="DISTANCE"></mutation><field name="MODE">DISTANCE</field><field name="SENSORPORT">4</field><field name="SLOT"></field></block></value><value name="B"><block type="math_number" id="QXaGRhtQhvjHVv:yih!U" intask="true"><field name="NUM">10</field></block></value></block></value><statement name="DO0"><block type="robActions_motorDiff_on_for" id="mB9fMe}_8C_k#/=O+5P," intask="true"><field name="DIRECTION">BACKWARDS</field><value name="POWER"><block type="math_number" id="PaZK{@B?~n,fd:IflwwG" intask="true"><field name="NUM">50</field></block></value><value name="DISTANCE"><block type="math_number" id="Kh1y3tqhzw?9iQXQjOe6" intask="true"><field name="NUM">10</field></block></value></block><block type="robActions_motorDiff_turn_for" id="ypq6b25Nq:2k/AKL?@MV" intask="true"><field name="DIRECTION">LEFT</field><value name="POWER"><block type="math_number" id="9U%rbZzA+fR9yyFymFcN" intask="true"><field name="NUM">20</field></block></value><value name="DEGREE"><block type="math_number" id="i6R*-5K7SCQGXe;~)~H1" intask="true"><field name="NUM">90</field></block></value></block><block type="robActions_motorDiff_on_for" id="7W,Rn`YOrBuCQ}`sJ3W6" intask="true"><field name="DIRECTION">FOREWARD</field><value name="POWER"><block type="math_number" id="hXzRhhfa%{,~11D63:S[" intask="true"><field name="NUM">50</field></block></value><value name="DISTANCE"><block type="math_number" id="]LOFZ_~9{.VO{~-6tdWJ" intask="true"><field name="NUM">35</field></block></value></block><block type="robActions_motorDiff_turn_for" id="`;ES?(DCbq!D.gq0?.yr" intask="true"><field name="DIRECTION">RIGHT</field><value name="POWER"><block type="math_number" id="V,/:c|DwRIBv0jqT3)#B" intask="true"><field name="NUM">20</field></block></value><value name="DEGREE"><block type="math_number" id="q@lz0_Pg?kXwF~Td{}VU" intask="true"><field name="NUM">90</field></block></value></block><block type="robActions_motorDiff_on_for" id="bov=I.4u@t*-S*k6oP9f" intask="true"><field name="DIRECTION">FOREWARD</field><value name="POWER"><block type="math_number" id="h3LM4z+GRY3!5xE8wX;O" intask="true"><field name="NUM">50</field></block></value><value name="DISTANCE"><block type="math_number" id="^/6yd|Xi|[_[TUZ2K@e(" intask="true"><field name="NUM">90</field></block></value></block><block type="robActions_motorDiff_turn_for" id="Tv:mX!:`xL0*jF/s./Xm" intask="true"><field name="DIRECTION">RIGHT</field><value name="POWER"><block type="math_number" id="Qa^cac?4R3-le1Y@NN_e" intask="true"><field name="NUM">20</field></block></value><value name="DEGREE"><block type="math_number" id=",C;Szw3)CVP25`rfTBXw" intask="true"><field name="NUM">90</field></block></value></block></statement></block><block type="robControls_if" id="R1tA[G)VteaIeFs(*j0Z" intask="true"><value name="IF0"><block type="logic_compare" id="*BavCaT!D-_`SKbeJOb1" intask="true"><field name="OP">EQ</field><value name="A"><block type="robSensors_colour_getSample" id="Z63NacV]e8:R%N_{9G78" intask="true"><mutation mode="COLOUR"></mutation><field name="MODE">COLOUR</field><field name="SENSORPORT">3</field><field name="SLOT"></field></block></value><value name="B"><block type="robColour_picker" id="?5[hhUEFZ5rLOJjyUH8m" intask="true"><field name="COLOUR">#f7d117</field></block></value></block></value><statement name="DO0"><block type="robActions_motorDiff_stop" id="HQk1a|g1WlbqyL:mca}{" intask="true"></block><block type="robControls_wait_time" id="_QEI7w4/x#X6`9R!CW27" intask="true"><value name="WAIT"><block type="math_number" id="n7kZlkz7owrq@[hRk}b{" intask="true"><field name="NUM">1000</field></block></value></block><block type="robActions_motorDiff_on_for" id="/Y[3PIS[?Aw1Othq91t@" intask="true"><field name="DIRECTION">FOREWARD</field><value name="POWER"><block type="math_number" id="zTO3kUt)s9W%YS-bsrbK" intask="true"><field name="NUM">50</field></block></value><value name="DISTANCE"><block type="math_number" id="B(lDzN6dpVRRrS00k7Y0" intask="true"><field name="NUM">70</field></block></value></block><block type="robActions_motorDiff_turn_for" id="K?dqLKaU:{T3zne4dk#T" intask="true"><field name="DIRECTION">RIGHT</field><value name="POWER"><block type="math_number" id="6FlFoEpg:a=b5W`Tx1;r" intask="true"><field name="NUM">20</field></block></value><value name="DEGREE"><block type="math_number" id="A~CRBXYw,JTgCX:q7n,O" intask="true"><field name="NUM">90</field></block></value></block></statement></block><block type="robControls_if" id="M%(P5E,CnY2gU.+x#bgU" intask="true"><value name="IF0"><block type="logic_compare" id="KgWVnK]eJ!1WK?v0)4np" intask="true"><field name="OP">EQ</field><value name="A"><block type="robSensors_colour_getSample" id="#vUwa=XLTd=mT_9zKFiA" intask="true"><mutation mode="COLOUR"></mutation><field name="MODE">COLOUR</field><field name="SENSORPORT">3</field><field name="SLOT"></field></block></value><value name="B"><block type="robColour_picker" id="|Wdch0qJ{u?aooFE+mPo" intask="true"><field name="COLOUR">#0057a6</field></block></value></block></value><statement name="DO0"><block type="robActions_motorDiff_stop" id="gmL0JZX_y*1w,R_9:/el" intask="true"></block><block type="robControls_wait_time" id="It`fBDnU74*ok*YxZ{NA" intask="true"><value name="WAIT"><block type="math_number" id="}^xZ8=EowA53M]XOsd6-" intask="true"><field name="NUM">1000</field></block></value></block></statement></block><block type="robControls_if" id="uZ0n9bZ/NeDf7D4y]z5(" intask="true"><value name="IF0"><block type="logic_compare" id="yK,ypy@c1wWb~cI2cD*J" intask="true"><field name="OP">EQ</field><value name="A"><block type="robSensors_colour_getSample" id="mC{}@.+}P-YT%na-Vn2B" intask="true"><mutation mode="COLOUR"></mutation><field name="MODE">COLOUR</field><field name="SENSORPORT">3</field><field name="SLOT"></field></block></value><value name="B"><block type="robColour_picker" id="L9=ri}j[{F5gAsni6D{N" intask="true"><field name="COLOUR">#585858</field></block></value></block></value><statement name="DO0"><block type="robActions_motorDiff_stop" id="EY.y/FK0A~J}_K)-^RgQ" intask="true"></block><block type="controls_flow_statements" id="7DcI]cf0Unk}nI+mbLo{" intask="true"><field name="FLOW">BREAK</field></block></statement></block></statement></block></instance></block_set></program><config><block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="ev3" xmlversion="3.1" description="" tags="">
+    <instance x="213" y="213">
+        <block type="robBrick_EV3-Brick" id="1" intask="true" deletable="false">
+            <field name="WHEEL_DIAMETER">5.6</field>
+            <field name="TRACK_WIDTH">18</field>
+            <value name="S1">
+                <block type="robBrick_touch" id="2" intask="true"></block>
+            </value>
+            <value name="S2">
+                <block type="robBrick_gyro" id="3" intask="true"></block>
+            </value>
+            <value name="S3">
+                <block type="robBrick_colour" id="4" intask="true"></block>
+            </value>
+            <value name="S4">
+                <block type="robBrick_ultrasonic" id="5" intask="true"></block>
+            </value>
+            <value name="MB">
+                <block type="robBrick_motor_big" id="6" intask="true">
+                    <field name="MOTOR_REGULATION">TRUE</field>
+                    <field name="MOTOR_REVERSE">OFF</field>
+                    <field name="MOTOR_DRIVE">RIGHT</field>
+                </block>
+            </value>
+            <value name="MC">
+                <block type="robBrick_motor_big" id="7" intask="true">
+                    <field name="MOTOR_REGULATION">TRUE</field>
+                    <field name="MOTOR_REVERSE">OFF</field>
+                    <field name="MOTOR_DRIVE">LEFT</field>
+                </block>
+            </value>
+        </block>
+    </instance>
+</block_set>
+</config></export>
